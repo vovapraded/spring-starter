@@ -1,0 +1,45 @@
+db:
+  username: postgres
+  password: postgres
+  pool:size: 12
+  driver: PostgresDriver
+  url: jdbc:postgresql://localhost:5431/postgres?currentSchema=hibernate
+  hosts: localhost, 127.0.0.1
+  properties:
+    first: 1
+    last: 2
+  pool:
+    size: 10
+    timeout: 20
+  pools:
+    - size: 10
+      timeout: 20
+    - size: 10
+      timeout: 20
+    - size: 10
+      timeout: 20
+logging:
+  level:
+    root: trace
+spring:
+  mvc:
+    view:
+      prefix: /WEB-IN/jsp/
+      suffix: .jsp
+
+  output:
+    ansi:
+      enabled: ALWAYS
+  datasource:
+    url: jdbc:postgresql://localhost:5431/springdata
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl.auto: validate
+    open-in-view: false
