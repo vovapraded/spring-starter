@@ -4,14 +4,15 @@ import by.javaguru.spring.database.entity.User;
 import by.javaguru.spring.dto.QPredicates;
 import by.javaguru.spring.dto.UserFilter;
 import com.querydsl.jpa.impl.JPAQuery;
-import jakarta.persistence.EntityManager;
 
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static by.javaguru.spring.database.entity.QUser.user;
+
 
 @RequiredArgsConstructor
 public class FilterUserRepositoryImpl implements FilterUserRepository {
@@ -28,6 +29,7 @@ public class FilterUserRepositoryImpl implements FilterUserRepository {
               .from(user)
               .where(predicate)
               .fetch();
+
 
 
     }

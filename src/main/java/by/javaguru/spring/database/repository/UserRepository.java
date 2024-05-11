@@ -9,12 +9,14 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User,Long>, FilterUserRepository {
+public interface UserRepository extends JpaRepository<User,Long>, FilterUserRepository,
+        QuerydslPredicateExecutor<User> {
     Slice<User> findAllBy(Pageable pageable);
     List<User> findFirst3By(Sort sort);
     Optional<User> findFirstByCompanyIsNotNullOrderByIdDesc();

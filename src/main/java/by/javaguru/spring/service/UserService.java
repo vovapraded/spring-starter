@@ -1,22 +1,24 @@
 package by.javaguru.spring.service;
 
+import by.javaguru.spring.database.entity.QUser;
 import by.javaguru.spring.database.repository.UserRepository;
-import by.javaguru.spring.dto.UserCreateEditDto;
-import by.javaguru.spring.dto.UserDto;
+import by.javaguru.spring.dto.*;
 import by.javaguru.spring.database.entity.User;
-import by.javaguru.spring.dto.UserFilter;
-import by.javaguru.spring.dto.UserReadDto;
 import by.javaguru.spring.mapper.UserCreateEditMapper;
 import by.javaguru.spring.mapper.UserMapper;
 import by.javaguru.spring.mapper.UserReadMapper;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static by.javaguru.spring.database.entity.QUser.*;
 
 @RequiredArgsConstructor
 @ToString
@@ -27,11 +29,23 @@ public class UserService {
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
     private final UserRepository userRepository;
+    public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable){
+        var predicate = QPredicates.builder()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthDate(), user.birthDate::before)
+                .build();
+        return  userRepository.findAll(predicate,pageable)
+                .map(userReadMapper::map);
+
+    }
+
     public List<UserReadDto> findAll(UserFilter filter){
         return userRepository.findAllByFilter(filter).stream()
                 .map(userReadMapper::map)
                 .toList();
     }
+
     public List<UserReadDto> findAll(){
         return userRepository.findAll().stream()
                 .map(userReadMapper::map)
