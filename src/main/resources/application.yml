@@ -43,3 +43,6 @@ spring:
         format_sql: true
         hbm2ddl.auto: validate
     open-in-view: false
+app:
+  image:
+    bucket: C:\Users\vovat\IdeaProjects\spring-starter\images

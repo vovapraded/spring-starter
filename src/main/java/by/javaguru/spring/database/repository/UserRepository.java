@@ -4,6 +4,7 @@ import by.javaguru.spring.database.entity.User;
 import by.javaguru.spring.dto.IPersonalInfo;
 import by.javaguru.spring.dto.PersonalInfo;
 import by.javaguru.spring.dto.UserFilter;
+import by.javaguru.spring.mapper.Mapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -27,4 +28,5 @@ public interface UserRepository extends JpaRepository<User,Long>, FilterUserRepo
     @Query(value = "select u.firstname,u.lastname,u.birth_date from  users u where company_id = :companyId" ,nativeQuery = true)
     List<IPersonalInfo> findAllByCompanyId(Integer companyId);
 
+    Optional<User> findByUsername(String username);
 }

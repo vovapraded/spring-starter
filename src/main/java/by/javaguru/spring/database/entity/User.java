@@ -35,6 +35,7 @@ public class User implements BaseEntity<Long> {
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
-
+    private String image;
+    private String password;
 
 }
